@@ -100,7 +100,39 @@
 
 ### State(상태)
 
+```jsx
+import React, { useState } from "react";
+// 리액트 기능이기 때문에 리액트에서 불러옴
 
+const Counter = () => {
+  // 0에서 출발
+  // 1씩 증가하고
+  // 1씩 감소하는
+  // count 상태
+
+  const [count, setCount] = useState(0);
+  // useState(초기값)
+    
+  const onIncrease = () => {
+    setCount(count + 1);
+  };
+
+  const onDecrease = () => {
+    setCount(count - 1);
+  };
+
+  return (
+    <div>
+      <h2>{count}</h2>
+      <button onClick={onIncrease}>+</button>
+      <button onClick={onDecrease}>-</button>
+    </div>
+  );
+};
+```
+
+- 컴포넌트는 자신이 가진 상태(state)가 변할 때 다시 그림(호출)
+  - 리랜더
 
 
 
