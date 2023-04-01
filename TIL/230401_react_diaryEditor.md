@@ -173,3 +173,70 @@ return (
       </div>
 ```
 
+
+
+## input 관련 최소 글자수 제한
+
+```jsx
+  const handelSubmit = () => {
+    if (state.author.length < 1) {
+      alert("작성자는 최소 1글자 이상 입력해주세요");
+      return; // 다시 입력할 수 있도록 돌아가기
+    }
+    if (state.content.length < 5) {
+      alert("일기 본문은 최소 5글자 이상 입력해주세요");
+      return;
+    }
+    alert("저장 성공");
+  };
+```
+
+
+
+## DOM 요소에 접근
+
+### useRef
+
+```jsx
+import React, { useRef } from "react";
+```
+
+- React.MutableRefObject
+- alert 대신 focus로 변경
+
+```jsx
+	const DiaryEditor = () => {
+	const authorInput = useRef();
+
+    const handelSubmit = () => {
+    if (state.author.length < 1) {
+      // focus
+      authorInput.current.focus(); // 가장 최근 요소에 포커스
+      return;
+    }
+    if (state.content.length < 5) {
+      // focus
+      contentInput.current.focus();
+      return;
+    }
+    alert("저장 성공");
+  };
+    
+// 생략 ...
+
+  return (
+    <div className="DiaryEditor">
+      <h2>오늘의 일기</h2>
+      <div>
+        <input
+          ref={authorInput} // 해당 요소에 접근 가능하게 함
+          name="author"
+          value={state.author}
+          onChange={handleChangeState}
+        />
+      </div>
+    </div>
+  );
+};
+```
+
