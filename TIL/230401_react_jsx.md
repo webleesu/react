@@ -133,10 +133,23 @@ const Counter = () => {
 
 - 컴포넌트는 자신이 가진 상태(state)가 변할 때 다시 그림(호출)
   - 리랜더
+  - 나 자신이 아닌 부모가 리랜더 되어도 자식도 리랜더 함
 
 
 
+### Props
 
+- 객체로 받아옴
+
+- 혹시나 `initialValue`라는 값을 보내지 않았을때 오류를 방지하기 위해 미리 `defaultProps`로 default 값 줄 수 있음
+
+  ```jsx
+  Counter.defaultProps = {
+    initialValue: 0,
+  };
+  ```
+
+  
 
 
 
