@@ -28,5 +28,16 @@
 
 ## React Hooks
 
-- `use` 붙은 친구들을 함수형 컴포넌트가 아니더라도 사용 가능하게 함
-- `useState`, `useEffect`, `uesRef`
+- `use` 붙은 친구들을 클래스형 컴포넌트가 아니더라도 사용 가능하게 함
+- `useState`, `useEffect`, `uesRef` ...
+
+### useEffect()
+
+```jsx
+import React, { useEffect } from "react";
+
+useEffect(()=>{
+    // Callback 함수
+},[]); // 의존성 배열(Dependency Array) 이 배열 내에 들어있는 값이 변화하면 콜백함수가 
+```
+
