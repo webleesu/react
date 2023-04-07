@@ -8,13 +8,23 @@ import DiaryList from "./DiaryList";
 function App() {
   const [data, setData] = useState([]);
 
-  const dateId = useRef(0);
+  const dataId = useRef(0);
 
   const getData = async () => {
     const res = await fetch(
       "https://jsonplaceholder.typicode.com/comments"
     ).then((res) => res.json());
-    console.log(res);
+
+    const initData = res.slice(0, 20).map((it) => {
+      return {
+        author: it.email,
+        content: it.body,
+        emotion: Math.floor(Math.random() * 5) + 1,
+        created_date: new Date().getTime(),
+        id: dataId.current++,
+      };
+    });
+    setData(initData);
   };
 
   useEffect(() => {
@@ -28,9 +38,9 @@ function App() {
       content,
       emotion,
       created_date,
-      id: dateId.current,
+      id: dataId.current,
     };
-    dateId.current += 1;
+    dataId.current += 1;
     setData([newItem, ...data]);
   };
 
