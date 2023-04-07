@@ -216,3 +216,5 @@ const MemoizedCounterB = React.memo(CounterB, areEqual);
       </div>
 ```
 
+
+
