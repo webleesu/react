@@ -160,3 +160,59 @@ const OptimizeTest = () => {
 };
 ```
 
+
+
+객체 비교 시에도 리렌더 하지 않도록 최적화 하기 위해 필요한 문법
+
+```jsx
+function MyComponent(props) {
+  /* props를 사용하여 렌더링 */
+}
+function areEqual(prevProps, nextProps) {
+  /*
+  nextProps가 prevProps와 동일한 값을 가지면 true를 반환하고, 그렇지 않다면 false를 반환
+  */
+}
+```
+
+```jsx
+// 이전코드에서
+
+// 객체인 CounterB는 React.memo 제거
+const CounterB = ({ obj }) => {
+  useEffect(() => {
+    console.log(`CountB Update - count: ${obj.count}`);
+  });
+
+  return <div>{obj.count}</div>;
+};
+
+const areEqual = (prevProps, nextProps) => {
+  // return true; // 이전 프롭스 현재 프롭스가 같다 -> 리렌더링 하지 않게 됨
+  // return false; // 이전 프롭스 현재 프롭스가 다르다 -> 리렌더링 하게 됨
+  if (prevProps.obj.count === nextProps.obj.count) {
+    return true;
+  }
+  return false;
+};
+
+const MemoizedCounterB = React.memo(CounterB, areEqual);
+
+
+// ... 생략 ...
+// 기존 CounerB 대신 MemoizedCounterB 사용
+      <div>
+        <h2>Counter B</h2>
+        <MemoizedCounterB obj={obj} />
+        <button
+          onClick={() =>
+            setObj({
+              count: obj.count,
+            })
+          }
+        >
+          B button
+        </button>
+      </div>
+```
+
