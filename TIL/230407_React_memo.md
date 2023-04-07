@@ -103,3 +103,60 @@ const OptimizeTest = () => {
 };
 ```
 
+
+
+`CounterA`와 `CounterB` 모두 버튼 클릭시 초기와 같은 상태로 재할당
+
+- js가 객체, 함수, 배열과 같은 비원시 타입의 자료형 비교는 값에 의한 비교가 아닌 <b>주소에 의한 비교</b>를 함 (얕은 비교)
+
+```jsx
+const CounterA = React.memo(({ count }) => {
+  useEffect(() => {
+    console.log(`CountA Update - count: ${count}`);
+  });
+
+  return <div>{count}</div>;
+});
+const CounterB = React.memo(({ obj }) => {
+  useEffect(() => {
+    console.log(`CountB Update - count: ${obj.count}`);
+  });
+
+  return <div>{obj.count}</div>;
+});
+
+const OptimizeTest = () => {
+  const [count, setCount] = useState(1);
+  const [obj, setObj] = useState({
+    count: 1,
+  });
+
+  return (
+    <div style={{ padding: 50 }}>
+      <div>
+        <h2>Counter A</h2>
+        <CounterA count={count} />
+        <button onClick={() => setCount(count)}>A button</button>
+          // 아무리 클릭해도 변화 X
+      </div>
+
+      <div>
+        <h2>Counter B</h2>
+        <CounterB obj={obj} />
+        <button
+          onClick={() =>
+            setObj({
+              count: obj.count,
+            })
+          }
+        >
+          B button
+        </button>
+          // 클릭 시 콘솔 누적
+          // 객체를 비교하기 때문
+      </div>
+    </div>
+  );
+};
+```
+
